@@ -13,4 +13,5 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   RESTRICTED: '/restricted',
+  RESTRICTED_WITH_VARIABLE: '/restricted/{{id}}',
 }
