@@ -1,4 +1,4 @@
-import { BaseSchema } from 'yup';
+import { Schema } from 'yup';
 
 export interface FormProps {
   groups: FormFieldGroup[];
@@ -22,7 +22,7 @@ export interface FormField {
   type: FormFieldType;
   name: string;
   label?: string;
-  validation?: BaseSchema;
+  validation?: Schema;
   options?: FormFieldOption[];
   enableIfField?: EnableIfFieldRule;
 }

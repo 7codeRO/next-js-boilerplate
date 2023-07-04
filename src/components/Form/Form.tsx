@@ -1,5 +1,5 @@
 import { Form as FormikForm, Formik } from 'formik';
-import { BaseSchema, object as yupObject } from 'yup';
+import { object as yupObject, Schema } from 'yup';
 import { Typography } from '@mui/material';
 
 import Button from '../Button/Button';
@@ -14,7 +14,7 @@ import { FormFieldType, FormProps } from './Form.types';
 import styles from './Form.module.scss';
 
 const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize }: FormProps) => {
-  const validationSchema: { [name: string]: BaseSchema } = {};
+  const validationSchema: { [name: string]: Schema } = {};
 
   const inputs = groups.map((group, groupIndex) => {
     return (
