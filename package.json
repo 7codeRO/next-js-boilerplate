@@ -10,6 +10,9 @@
     "lint-fix": "npx next lint --fix",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": "^18.16"
+  },
   "dependencies": {
     "@aws-amplify/auth": "^5.5.3",
     "@date-io/dayjs": "^2.16.0",
