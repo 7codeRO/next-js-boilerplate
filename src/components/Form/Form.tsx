@@ -1,6 +1,5 @@
 import { Form as FormikForm, Formik } from 'formik';
 import { object as yupObject, Schema } from 'yup';
-import { Typography } from '@mui/material';
 
 import Button from '../Button/Button';
 
@@ -20,9 +19,9 @@ const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize 
     return (
       <div key={groupIndex} className={group.areOnSameRow ? styles.groupRow : styles.group}>
         {group.header && (
-          <Typography variant="h2" fontWeight="bold" sx={{ mb: '10px', fontSize: '20px' }}>
+          <h2 className='font-bold mb-2 text-xl'>
             {group.header}
-          </Typography>
+          </h2>
         )}
         {group.fields.map(field => {
           if (field.validation) validationSchema[field.name] = field.validation;
@@ -39,9 +38,9 @@ const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize 
             case FormFieldType.Textarea:
               return <TextareaInput key={field.name} field={field} />;
             case FormFieldType.Password:
-              return <TextInput key={field.name} label={field.label || ''} name={field.name} type="password" />;
+              return <TextInput key={field.name} label={field.label || ''} name={field.name} type='password' />;
             case FormFieldType.Email:
-              return <TextInput key={field.name} label={field.label || ''} name={field.name} type="email" />;
+              return <TextInput key={field.name} label={field.label || ''} name={field.name} type='email' />;
             case FormFieldType.Text:
             default:
               return <TextInput key={field.name} label={field.label || ''} name={field.name} />;
@@ -65,7 +64,7 @@ const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize 
         {formik => (
           <FormikForm className={styles.form}>
             <div className={styles.inputsContainer}>{inputs}</div>
-            <Button type="submit" margin="1.2em 0 0 0" disabled={!formik.isValid || formik.isSubmitting}>
+            <Button type='submit' margin='1.2em 0 0 0' disabled={!formik.isValid || formik.isSubmitting}>
               {buttonText}
             </Button>
           </FormikForm>
