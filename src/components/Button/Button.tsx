@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button } from 'flowbite-react'
 
 import { ButtonProps, BUTTON_THEME } from './Button.types';
 import styles from './Button.module.scss';
@@ -12,7 +12,7 @@ const StyledButton = ({
   className,
   variant = 'contained',
   disabled = false,
-  fullWidth = true,
+  fullWidth: fullSized = true,
   onClick,
 }: ButtonProps) => {
   return (
@@ -23,7 +23,7 @@ const StyledButton = ({
       variant={variant}
       disabled={disabled}
       className={`${styles.button} ${styles[theme]} ${className}`}
-      fullWidth={fullWidth}
+      fullSized={fullSized}
       onClick={onClick}
     >
       {children}
