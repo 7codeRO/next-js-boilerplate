@@ -19,11 +19,11 @@ const TimePickerInput = ({ field }: { field: FormField }) => {
       <TimePicker
         label={field.label}
         value={value}
-        onChange={newValue => {
+        onChange={(newValue: Date) => {
           setValue(newValue);
           helpers.setValue(newValue?.toISOString(), true);
         }}
-        renderInput={params => (
+        renderInput={(params: object) => (
           <TextField
             fullWidth
             {...params}
