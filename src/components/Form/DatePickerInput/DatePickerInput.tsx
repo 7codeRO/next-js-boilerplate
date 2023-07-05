@@ -1,31 +1,38 @@
-import Datepicker from 'tailwind-datepicker-react';
+import Datepicker, { IOptions } from 'tailwind-datepicker-react';
 import { useState } from 'react';
 import { FieldMetaProps, useField } from 'formik';
 import { FormField } from '../Form.types';
 import { TextInput } from 'flowbite-react';
 import styles from '/styles/inputs.module.scss';
+import { useLocale } from '../../../hooks/useLocale';
+import CalendarEdit from '../../Icons/CalendarEdit';
 
-const getUserLocale = () => navigator.languages && navigator.languages.length
-  ? navigator.languages[0]
-  : navigator.language;
+const useOptions = ({ initialValue }: FieldMetaProps<any>): IOptions => {
+  const locale = useLocale();
 
-const optionsForMeta = ({ initialValue }: FieldMetaProps<any>) => ({
-  language: getUserLocale() || 'en-US',
-  defaultDate: initialValue || new Date()
-});
+  return {
+    language: locale,
+    defaultDate: initialValue || new Date()
+  };
+};
 
 const DatePickerInput = ({ field }: { field: FormField }) => {
-  const [show, setShow] = useState(false);
   const [fieldProps, meta, helpers] = useField(field.name);
+  const [show, setShow] = useState(false);
+  const [value, setValue] = useState(meta.initialValue || new Date());
+  const options = useOptions(meta);
 
   const handleChange = (newValue: Date) => {
+    setValue(newValue);
     helpers.setValue(newValue?.toISOString(), true);
   };
 
   return (
-    <Datepicker options={optionsForMeta(meta)} onChange={handleChange} show={show} setShow={setShow}>
-      <TextInput id={field.name} {...fieldProps} className={styles.input}
-                 helperText={meta.touched && meta.error} />
+    <Datepicker options={options} onChange={handleChange} show={show} setShow={setShow}>
+      <TextInput id={field.name} {...fieldProps} helperText={meta.touched && meta.error}
+                 value={value.toLocaleDateString()} onClick={() => setShow(true)} readOnly icon={CalendarEdit}
+                 className={`${styles.input} flex items-center font-bold`} style={{ cursor: 'pointer' }}
+      />
     </Datepicker>
   );
 };
