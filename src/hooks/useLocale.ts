@@ -1,11 +1,15 @@
+import { useEffect, useState } from 'react';
+
 const getUserLocale = () => navigator.languages && navigator.languages.length
   ? navigator.languages[0]
   : navigator.language;
 
 export const useLocale = () => {
-  if (typeof navigator !== 'undefined') {
-    return getUserLocale()
-  }
+  const [state, setState] = useState('en-US');
 
-  return 'en-US'
-}
+  useEffect(() => {
+    setState(getUserLocale());
+  }, []);
+
+  return state;
+};
