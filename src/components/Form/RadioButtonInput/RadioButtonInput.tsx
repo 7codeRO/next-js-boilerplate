@@ -1,20 +1,15 @@
-import { Typography } from '@mui/material';
-
 import styles from './RadioButtonInput.module.scss';
 import { RadioButtonInputProps } from './RadioButtonInput.types';
 
+const blue = '#512AD8'
+const gray = '#8E8D8D'
+
 const RadioButtonInput = ({ active, title, onSelect }: RadioButtonInputProps) => {
+  const color = active ? blue : gray
+
   return (
     <div className={styles.container} onClick={onSelect}>
-      <Typography
-        color={active ? '#512AD8' : '#8E8D8D'}
-        sx={{ ml: '20px', fontSize: 17 }}
-        fontWeight="500"
-        variant="h6"
-        component="h2"
-      >
-        {title}
-      </Typography>
+      <h6 className={`font-bold text-${color}`}>{title}</h6>
       <input className={styles.container__radio} checked={active} name="radio" type="radio" onChange={onSelect} />
     </div>
   );
