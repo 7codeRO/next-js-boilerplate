@@ -4,8 +4,8 @@ import { FieldMetaProps, useField } from 'formik';
 import { FormField } from '../Form.types';
 import { TextInput } from 'flowbite-react';
 import styles from '/styles/inputs.module.scss';
-import { useLocale } from '../../../hooks/useLocale';
-import CalendarEdit from '../../Icons/CalendarEdit';
+import { useLocale } from 'src/hooks/useLocale';
+import { CalendarEdit } from 'src/icons';
 
 const useOptions = ({ initialValue }: FieldMetaProps<any>): IOptions => {
   const locale = useLocale();
