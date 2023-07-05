@@ -13,10 +13,10 @@ const CheckboxInput = ({ field }: { field: FormField }) => {
   const isChecked: boolean[] = Object.values(value);
 
   return (
-    <div role='group'>
+    <div role="group">
       {field.options?.map((option: FormFieldOption, optionIndex: number) => {
         return (
-          <div key={optionIndex} className={'flex items-center space-x-3'}>
+          <div key={optionIndex} className="flex items-center space-x-3">
             <Checkbox className={styles.label} name={`${field.name}-${optionIndex}`}
                       checked={isChecked[optionIndex] || false}
                       onChange={(event) => {
