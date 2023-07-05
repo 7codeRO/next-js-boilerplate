@@ -38,9 +38,11 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.63.6",
     "swr": "^2.2.0",
+    "tailwind-datepicker-react": "^1.4.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
     "@types/google.maps": "^3.53.4",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",

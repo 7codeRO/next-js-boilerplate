@@ -1,50 +1,40 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import AdapterDayjs from '@mui/lab/AdapterDayjs';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-import { InputAdornment, TextField } from '@mui/material';
+import Datepicker, { IOptions } from 'tailwind-datepicker-react';
 import { useState } from 'react';
-import { useField } from 'formik';
-
-import styles from '/styles/inputs.module.scss';
-
+import { FieldMetaProps, useField } from 'formik';
 import { FormField } from '../Form.types';
+import { TextInput } from 'flowbite-react';
+import styles from '/styles/inputs.module.scss';
+import { useLocale } from 'src/hooks/useLocale';
+import { CalendarEdit } from 'src/icons';
+import clsx from 'clsx';
+
+const useOptions = ({ initialValue }: FieldMetaProps<any>): IOptions => {
+  const locale = useLocale();
+
+  return {
+    language: locale,
+    defaultDate: initialValue || new Date()
+  };
+};
 
 const DatePickerInput = ({ field }: { field: FormField }) => {
   const [fieldProps, meta, helpers] = useField(field.name);
-  const [value, setValue] = useState<Date | null>(meta.initialValue);
+  const [show, setShow] = useState(false);
+  const [value, setValue] = useState(meta.initialValue || new Date());
+  const options = useOptions(meta);
+
+  const handleChange = (newValue: Date) => {
+    setValue(newValue);
+    helpers.setValue(newValue?.toISOString(), true);
+  };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        label={field.label}
-        value={value}
-        onChange={(newValue: Date) => {
-          setValue(newValue);
-          helpers.setValue(newValue?.toISOString(), true);
-        }}
-        renderInput={(params: object) => (
-          <TextField
-            fullWidth
-            {...params}
-            {...fieldProps}
-            margin="dense"
-            id={field.name}
-            error={meta.touched && !!meta.error}
-            helperText={meta.touched && meta.error}
-            InputLabelProps={{ className: styles.label }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <KeyboardArrowDownIcon />
-                </InputAdornment>
-              ),
-              className: styles.input,
-            }}
-          />
-        )}
+    <Datepicker options={options} onChange={handleChange} show={show} setShow={setShow}>
+      <TextInput id={field.name} {...fieldProps} helperText={meta.touched && meta.error}
+                 value={value.toLocaleDateString()} onClick={() => setShow(true)} readOnly icon={CalendarEdit}
+                 className={clsx(styles.input, 'flex items-center font-bold')} style={{ cursor: 'pointer' }}
       />
-    </LocalizationProvider>
+    </Datepicker>
   );
 };
 
