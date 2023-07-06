@@ -10,8 +10,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        activeBlue: '#512AD8',
-        inactiveGray: '#8E8D8D'
+        primary: {
+          main:  '#4123d7',
+          disabled: '#dadadab7'
+        },
       }
     },
   },
