@@ -13,12 +13,12 @@ const SocialAuthButtons = () => {
   return (
     <>
       <StyledButton onClick={() => socialLogin(SocialAuthEndpoint.Facebook)} theme={BUTTON_THEME.Custom}
-                    className="bg-facebook-main hover:bg-facebook-hovered relative">
+                    className="bg-facebook-main hover:bg-facebook-hovered relative mt-2">
         <Facebook className="absolute top-[13px] left-[16px] w-[20px] h-[20px]" />
         Connect with Facebook
       </StyledButton>
       <StyledButton onClick={() => socialLogin(SocialAuthEndpoint.Google)} theme={BUTTON_THEME.Custom}
-                    className="bg-google-main hover:bg-google-hovered relative">
+                    className="bg-google-main hover:bg-google-hovered relative mt-2">
         <Google className="absolute top-[13px] left-[16px] w-[20px] h-[20px]" />
         Connect with Google
       </StyledButton>
