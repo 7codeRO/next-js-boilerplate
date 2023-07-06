@@ -1,12 +1,8 @@
-import { Style, TextInputTypes } from './TextInput.types';
+import { TextInputTypes } from './TextInput.types';
 import { useField } from 'formik';
-import clsx from 'clsx';
 import { RenderIf } from '../../RenderIf/RenderIf';
 import { styles } from './TextInput.styles';
-
-const buildStyles = (hasErrors: boolean, style: Style) => {
-  return clsx(style.mandatory, hasErrors ? style.error : style.notError);
-};
+import { buildStyles } from '../Common/BuildStyles';
 
 const TextInput = (props: TextInputTypes) => {
   const [field, meta] = useField(props);

@@ -1,10 +1,11 @@
-import { Label, Textarea } from 'flowbite-react';
+import { Textarea } from 'flowbite-react';
 import { useField } from 'formik';
 
 import { TextareaInputProps } from './TextareaInput.types';
 
-import styles from '/styles/inputs.module.scss';
-import clsx from 'clsx';
+import { RenderIf } from '../../RenderIf/RenderIf';
+import { styles } from './TextareaInput.styles';
+import { buildStyles } from '../Common/BuildStyles';
 
 const TextareaInput = ({ field }: TextareaInputProps) => {
   const [fieldProps, meta, helpers] = useField(field.name);
@@ -20,26 +21,25 @@ const TextareaInput = ({ field }: TextareaInputProps) => {
     if (disabled && fieldProps.value) setTimeout(() => helpers.setValue(''));
   }
 
-  const hasErrors = meta.touched && !!meta.error
+  const hasErrors = meta.touched && !!meta.error;
 
   return (
-    <>
-      <div className='mb-2 block'>
-        <Label
-          htmlFor={field.name}
-          value={field.label}
-        />
-      </div>
+    <div className="group">
+      <RenderIf condition={!!field.label}>
+        <p className={buildStyles(hasErrors, styles.label)}>
+          {field.label}
+        </p>
+      </RenderIf>
       <Textarea
         {...fieldProps}
         id={field.name}
         disabled={disabled}
-        className={clsx(styles.inputTextArea, hasErrors && "border-2 border-red-600")}
+        className={buildStyles(hasErrors, styles.inputTextArea)}
         rows={5}
         color={hasErrors ? 'failure' : 'gray'}
         helperText={meta.touched && meta.error}
       />
-    </>
+    </div>
   );
 };
 

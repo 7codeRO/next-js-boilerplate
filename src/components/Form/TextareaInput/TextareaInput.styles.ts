@@ -2,11 +2,9 @@ import clsx from 'clsx';
 import { Styles } from '../Common/Types';
 
 export const styles: Styles = {
-  input: {
+  inputTextArea: {
     mandatory: clsx(
-      'rounded-full',
       'w-full',
-      'h-12',
       'border',
       'focus-within:border-2',
       'py-2',
