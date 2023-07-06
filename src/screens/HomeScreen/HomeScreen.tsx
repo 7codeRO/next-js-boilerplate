@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 import Button from '../../components/Button/Button';
-import styles from './HomeScreen.module.scss';
 import { useDispatch } from 'react-redux';
 import { logout } from '@redux/slices/auth';
 import AuthService from 'src/services/auth/auth.service';
@@ -16,7 +15,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className="h-full flex flex-col items-center justify-center bg-primary-background">
       <Button onClick={() => router.push('/login')}>LOGIN</Button>
       <Button onClick={() => logOut()}>LOGOUT</Button>
     </div>
