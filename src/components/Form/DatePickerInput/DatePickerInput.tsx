@@ -3,10 +3,8 @@ import { useState } from 'react';
 import { FieldMetaProps, useField } from 'formik';
 import { FormField } from '../Form.types';
 import { TextInput } from 'flowbite-react';
-import styles from '/styles/inputs.module.scss';
 import { useLocale } from 'src/hooks/useLocale';
 import { CalendarEdit } from 'src/icons';
-import clsx from 'clsx';
 
 const useOptions = ({ initialValue }: FieldMetaProps<any>): IOptions => {
   const locale = useLocale();
@@ -32,7 +30,7 @@ const DatePickerInput = ({ field }: { field: FormField }) => {
     <Datepicker options={options} onChange={handleChange} show={show} setShow={setShow}>
       <TextInput id={field.name} {...fieldProps} helperText={meta.touched && meta.error}
                  value={value.toLocaleDateString()} onClick={() => setShow(true)} readOnly icon={CalendarEdit}
-                 className={clsx(styles.input, 'flex items-center font-bold')} style={{ cursor: 'pointer' }}
+                 className='flex items-center font-bold w-full rounded-full' style={{ cursor: 'pointer' }}
       />
     </Datepicker>
   );
