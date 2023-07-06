@@ -1,51 +1,53 @@
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import AdapterDayjs from '@mui/lab/AdapterDayjs';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import TimePicker from '@mui/lab/TimePicker';
-import { InputAdornment, TextField } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
 import { useField } from 'formik';
-import { useState } from 'react';
-
 import { FormField } from '../Form.types';
+import dayjs from 'dayjs';
+import { RenderIf } from '../../RenderIf/RenderIf';
+import { buildStyles } from '../Common/BuildStyles';
+import { styles } from './TimePickerInput.styles';
 
-import styles from '/styles/inputs.module.scss';
+const dateFromEvent = (event: ChangeEvent<HTMLInputElement>) => {
+  const [hour, minutes] = event.target.value.split(':').map(Number);
+  if (hour === undefined || minutes === undefined) {
+    return null
+  }
+
+  const date = new Date();
+  date.setHours(hour);
+  date.setMinutes(minutes);
+
+  return date;
+};
 
 const TimePickerInput = ({ field }: { field: FormField }) => {
   const [fieldProps, meta, helpers] = useField(field.name);
-  const [value, setValue] = useState<Date | null>(meta.initialValue);
+  const [value, setValue] = useState(meta.initialValue || new Date());
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <TimePicker
-        label={field.label}
-        value={value}
-        onChange={(newValue: Date) => {
-          setValue(newValue);
-          helpers.setValue(newValue?.toISOString(), true);
-        }}
-        renderInput={(params: object) => (
-          <TextField
-            fullWidth
-            {...params}
-            {...fieldProps}
-            margin="dense"
-            id={field.name}
-            error={meta.touched && !!meta.error}
-            helperText={meta.touched && meta.error}
-            InputLabelProps={{ className: styles.label }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <KeyboardArrowDownIcon />
-                </InputAdornment>
-              ),
-              className: styles.input,
-            }}
-          />
-        )}
-      />
-    </LocalizationProvider>
-  );
+  const displayValue = dayjs(value).format('HH:mm');
+  const hasErrors = meta.touched && !!meta.error;
+
+  return <div className='group'>
+    <RenderIf condition={!!field.label}>
+      <span className={buildStyles(hasErrors, styles.label)}>{field.label}</span>
+    </RenderIf>
+    <input
+      {...fieldProps}
+      type='time'
+      value={displayValue}
+      onChange={(event) => {
+        const date = dateFromEvent(event);
+
+        setValue(date);
+        helpers.setValue(date?.toISOString(), true);
+      }}
+      className={buildStyles(hasErrors, styles.input)}
+    />
+    <RenderIf condition={hasErrors}>
+      <p className="text-xs text-red-600 ml-3">
+        {meta.error}
+      </p>
+    </RenderIf>
+  </div>;
 };
 
 export default TimePickerInput;
