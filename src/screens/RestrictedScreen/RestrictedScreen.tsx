@@ -1,4 +1,3 @@
-import styles from './RestrictedScreen.module.scss';
 import useSWR from 'swr';
 import { useHttp } from '../../hooks/useHttp';
 import { getPosts } from '../../services/api/api-request-sample/sample.api';
@@ -21,7 +20,7 @@ const RestrictedScreen = () => {
     router.push(replaceStringTemplateValuesFromObject(ROUTES.RESTRICTED_WITH_VARIABLE, { id }))
 
   return (
-    <ul className={styles.container}>
+    <ul className="h-full flex flex-col items-center justify-center bg-primary-background">
       {
         data && data.map(({ title, id }) => {
           return (
