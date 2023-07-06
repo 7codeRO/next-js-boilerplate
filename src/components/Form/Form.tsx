@@ -10,14 +10,15 @@ import CheckboxInput from './CheckboxInput/CheckboxInput';
 import RadioInput from './RadioInput/RadioInput';
 import TextareaInput from './TextareaInput/TextareaInput';
 import { FormFieldType, FormProps } from './Form.types';
-import styles from './Form.module.scss';
 
 const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize }: FormProps) => {
   const validationSchema: { [name: string]: Schema } = {};
 
   const inputs = groups.map((group, groupIndex) => {
+    const groupStyle = group.areOnSameRow ?  'flex justify-between space-x-2.5' : 'flex flex-col space-y-2'
+
     return (
-      <div key={groupIndex} className={group.areOnSameRow ? styles.groupRow : styles.group}>
+      <div key={groupIndex} className={groupStyle}>
         {group.header && (
           <h2 className='font-bold mb-2 text-xl'>
             {group.header}
@@ -62,8 +63,8 @@ const Form = ({ groups, initialValues, buttonText, onSubmit, enableReinitialize 
         }}
       >
         {formik => (
-          <FormikForm className={styles.form}>
-            <div className={styles.inputsContainer}>{inputs}</div>
+          <FormikForm className="flex flex-col min-h-full w-full">
+            <div className="flex flex-1 flex-col space-y-2">{inputs}</div>
             <Button type='submit' margin='1.2em 0 0 0' disabled={!formik.isValid || formik.isSubmitting}>
               {buttonText}
             </Button>
