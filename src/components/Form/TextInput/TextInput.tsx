@@ -1,27 +1,31 @@
+import { Style, TextInputTypes } from './TextInput.types';
 import { useField } from 'formik';
-import TextField from '@mui/material/TextField';
+import clsx from 'clsx';
+import { RenderIf } from '../../RenderIf/RenderIf';
+import { styles } from './TextInput.styles';
 
-import { TextInputTypes } from './TextInput.types';
+const buildStyles = (hasErrors: boolean, style: Style) => {
+  return clsx(style.mandatory, hasErrors ? style.error : style.notError);
+};
 
-import styles from '/styles/inputs.module.scss';
-
-const TextInput = ({ margin = 'dense', ...props }: TextInputTypes) => {
+const TextInput = (props: TextInputTypes) => {
   const [field, meta] = useField(props);
+  const hasErrors = meta.touched && !!meta.error;
 
   return (
-    <TextField
-      {...field}
-      {...props}
-      fullWidth
-      margin={margin}
-      id={props.name}
-      error={meta.touched && !!meta.error}
-      helperText={meta.touched && meta.error}
-      InputLabelProps={{ className: styles.label }}
-      InputProps={{
-        className: styles.input,
-      }}
-    />
+    <div className="group">
+      <RenderIf condition={!!props.label}>
+        <p className={buildStyles(hasErrors, styles.label)}>
+          {props.label}
+        </p>
+      </RenderIf>
+      <input {...field} className={buildStyles(hasErrors, styles.input)} />
+      <RenderIf condition={hasErrors}>
+        <p className="text-xs text-red-600 ml-3">
+          {meta.error}
+        </p>
+      </RenderIf>
+    </div>
   );
 };
 
