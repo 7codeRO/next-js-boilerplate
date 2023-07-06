@@ -17,4 +17,5 @@ export const enum BUTTON_THEME {
   Primary = 'primary',
   Secondary = 'secondary',
   Text = 'text',
+  Custom = 'custom'
 }

@@ -22,6 +22,14 @@ module.exports = {
         secondary: {
           main: '#9a9a9a',
           background: '#fff'
+        },
+        facebook: {
+          main: '#4267b2',
+          hovered: '#0c43b2'
+        },
+        google: {
+          main: '#db4537',
+          hovered: '#c42e21'
         }
       }
     },

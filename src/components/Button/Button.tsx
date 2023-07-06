@@ -22,7 +22,8 @@ const themes = {
     'shadow-none',
     'hover:bg-none',
     'hover:shadow-none'
-  )
+  ),
+  [BUTTON_THEME.Custom]: ''
 };
 
 const buildClassName = ({ className, theme }: {className?: string, theme: BUTTON_THEME}) => {
