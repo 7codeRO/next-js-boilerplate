@@ -1,26 +1,21 @@
-import { CircularProgress, Typography } from '@mui/material';
+import { Spinner } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/reducers';
-
-import styles from './LoadingSpinner.module.scss';
+import { styles } from './LoadingSpinner.styles';
+import { RenderIf } from '../RenderIf/RenderIf';
 
 const LoadingSpinner = () => {
   const { isLoading } = useSelector((state: RootState) => state.ui);
 
   return (
-    <>
-      {isLoading && (
-        <div className={styles.container}>
-          <CircularProgress
-            size={50}
-            sx={{ color: 'white', m: 'auto', position: 'absolute', top: 0, left: 0, bottom: 0, right: 0 }}
-          />
-          <Typography color="white" sx={{ mt: '100px', ml: '10px' }}>
-            Loading...
-          </Typography>
-        </div>
-      )}
-    </>
+    <RenderIf condition={isLoading}>
+      <div className={styles.container}>
+        <Spinner size="xl" color="gray" />
+        <p className="text-white mt-3">
+          Loading...
+        </p>
+      </div>
+    </RenderIf>
   );
 };
 
