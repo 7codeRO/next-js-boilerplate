@@ -8,7 +8,12 @@ module.exports = {
     "./node_modules/tailwind-datepicker-react/dist/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        activeBlue: '#512AD8',
+        inactiveGray: '#8E8D8D'
+      }
+    },
   },
   plugins: [
     require("flowbite/plugin")
