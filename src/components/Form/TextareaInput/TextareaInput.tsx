@@ -1,9 +1,11 @@
-import { TextField } from '@mui/material';
+import { Textarea } from 'flowbite-react';
 import { useField } from 'formik';
 
 import { TextareaInputProps } from './TextareaInput.types';
 
-import styles from '/styles/inputs.module.scss';
+import { RenderIf } from '../../RenderIf/RenderIf';
+import { styles } from './TextareaInput.styles';
+import { buildStyles } from '../Common/BuildStyles';
 
 const TextareaInput = ({ field }: TextareaInputProps) => {
   const [fieldProps, meta, helpers] = useField(field.name);
@@ -11,7 +13,7 @@ const TextareaInput = ({ field }: TextareaInputProps) => {
 
   if (field.enableIfField) {
     const [relatedField] = useField({
-      name: field.enableIfField.fieldName,
+      name: field.enableIfField.fieldName
     });
 
     disabled = relatedField.value !== field.enableIfField.value;
@@ -19,21 +21,25 @@ const TextareaInput = ({ field }: TextareaInputProps) => {
     if (disabled && fieldProps.value) setTimeout(() => helpers.setValue(''));
   }
 
+  const hasErrors = meta.touched && !!meta.error;
+
   return (
-    <TextField
-      fullWidth
-      {...fieldProps}
-      label={field.label}
-      id={field.name}
-      disabled={disabled}
-      multiline
-      rows={5}
-      margin="dense"
-      error={meta.touched && !!meta.error}
-      helperText={meta.touched && meta.error}
-      InputLabelProps={{ className: styles.label }}
-      InputProps={{ className: styles.inputTextArea }}
-    />
+    <div className="group">
+      <RenderIf condition={!!field.label}>
+        <p className={buildStyles(hasErrors, styles.label)}>
+          {field.label}
+        </p>
+      </RenderIf>
+      <Textarea
+        {...fieldProps}
+        id={field.name}
+        disabled={disabled}
+        className={buildStyles(hasErrors, styles.inputTextArea)}
+        rows={5}
+        color={hasErrors ? 'failure' : 'gray'}
+        helperText={meta.touched && meta.error}
+      />
+    </div>
   );
 };
 

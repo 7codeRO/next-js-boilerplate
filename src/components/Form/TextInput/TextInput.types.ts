@@ -4,7 +4,6 @@ export interface TextInputTypes {
   type?: string;
   margin?: 'normal' | 'none' | 'dense';
   required?: boolean;
-  size?: 'small' | 'medium' | undefined;
   variant?: 'filled' | 'outlined' | 'standard';
   multiline?: boolean;
   width?: string;
