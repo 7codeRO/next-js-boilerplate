@@ -4,7 +4,7 @@ import { Radio, Label } from 'flowbite-react';
 import { RenderIf } from 'src/components/RenderIf/RenderIf';
 
 const RadioInput = ({ field }: { field: FormField }) => {
-  const [_, __, helpers] = useField(field.name);
+  const [_, meta, helpers] = useField(field.name);
 
   return (
     <fieldset
@@ -21,6 +21,7 @@ const RadioInput = ({ field }: { field: FormField }) => {
         <Radio
           id={`${field.name}-option-${index}`}
           name={field.name}
+          checked={option.value === meta.value}
           value={`${option.value}`}
           onChange={event => {
             helpers.setValue(event.target.value);
