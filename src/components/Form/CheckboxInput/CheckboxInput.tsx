@@ -11,11 +11,11 @@ const CheckboxInput = ({ field }: { field: FormField }) => {
   const isChecked: boolean[] = Object.values(value);
 
   return (
-    <div role="group">
+    <div role='group'>
       {field.options?.map((option: FormFieldOption, optionIndex: number) => {
         return (
-          <div key={optionIndex} className="flex items-center space-x-3">
-            <Checkbox className={'flex text-sm'} name={`${field.name}-${optionIndex}`}
+          <div key={optionIndex} className='flex items-center space-x-3'>
+            <Checkbox className='flex text-sm' name={`${field.name}-${optionIndex}`}
                       checked={isChecked[optionIndex] || false}
                       onChange={(event) => {
                         const newValue = { ...value };
@@ -25,7 +25,7 @@ const CheckboxInput = ({ field }: { field: FormField }) => {
                         helpers.setValue(newValue);
                       }}
             />
-            <Label className={'flex text-sm'}>{option.label}</Label>
+            <Label className='flex text-sm'>{option.label}</Label>
           </div>
 
         );
